@@ -6,4 +6,24 @@
  */
 
 // 請在下方寫下你的程式碼
+export async function fetchData(url: string): Promise<any> {
+    try {
+        // 使用 fetch 函式發送 HTTP 請求
+        const response = await fetch(url);
 
+        // 確認 HTTP 狀態碼是否為成功 (200 OK)
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // 將回應的 JSON 資料解析為 JavaScript 物件
+        const data = await response.json();
+
+        // 返回解析後的資料
+        return data;
+    } catch (error) {
+        // 處理錯誤情況，例如網路錯誤或 JSON 解析錯誤
+        console.error('Error fetching data:', error.message);
+        throw error;
+    }
+}
